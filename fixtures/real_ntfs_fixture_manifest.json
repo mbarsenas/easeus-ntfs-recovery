@@ -1,0 +1,28 @@
+{
+  "format": "easeus-ntfs-recovery.real-ntfs-fixture.v1",
+  "status": "planned",
+  "files": [
+    {
+      "deleted": false,
+      "path": "/Root/Resident.txt",
+      "size": 27,
+      "sha256": "85fbfe74d666a9536bd51c6c7c75d19170a750c07a1002eabeafb998d2795f7f"
+    },
+    {
+      "deleted": false,
+      "path": "/Root/Nested/Large.bin",
+      "size": 2097152,
+      "sha256": "a095cb3ec83a81ee83e4f38668eb366aefef7e5f70160a044994cec435295f4c"
+    },
+    {
+      "deleted": true,
+      "path": "/Root/Nested/DeleteMe.bin",
+      "size": 6656,
+      "sha256": "4c467836f875fc6463df70d16d57ab397f9461b9b4791d79e9714cc3cca2551a"
+    }
+  ],
+  "notes": [
+    "Hashes are of host bytes before copying into the image.",
+    "Deleted-file recovery is successful only if recovered output hashes match."
+  ]
+}

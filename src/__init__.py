@@ -1,0 +1,1 @@
+"""Independent NTFS recovery implementation."""
