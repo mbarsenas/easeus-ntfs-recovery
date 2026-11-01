@@ -50,7 +50,7 @@ only:
 PYTHONPATH=. python3 - <<'PY'
 from src.ntfs_recovery import VHDXReader, NTFSVolume, is_easeus_ntfs_boot_sector, u16, u64
 
-path = "/mnt/c/Users/Mark/AppData/Local/Temp/ntfs-recovery-test.vhdx"
+path = "/path/to/ntfs-recovery-test.vhdx"
 partition = 0x01000000
 with VHDXReader(path) as source:
     boot = source.read_at(partition, 512)
@@ -153,7 +153,7 @@ device reads, `/dev/sdg` access, or broad disk scans were performed.
 ## Diagnosis of missing files
 
 The original manifest was read from
-`/mnt/c/Users/Mark/AppData/Local/Temp/ntfs-recovery-originals.json`. It lists
+`/path/to/ntfs-recovery-originals.json`. It lists
 eight files: five active controls and three deleted files.
 
 ### MFT completeness
@@ -437,8 +437,8 @@ Command:
 ```text
 tmpdest=$(mktemp -d /dev/shm/ntfs-active-recovery.XXXXXX)
 PYTHONPATH=. python3 - <<'PY' "$tmpdest" \
-  "/mnt/c/Users/Mark/AppData/Local/Temp/ntfs-recovery-test.vhdx" \
-  "/mnt/c/Users/Mark/AppData/Local/Temp/ntfs-recovery-originals.json"
+  "/path/to/ntfs-recovery-test.vhdx" \
+  "/path/to/ntfs-recovery-originals.json"
 # Select records 45, 47, 48, 50, 51; recover with include_deleted=False;
 # compare output size and SHA-256 against the manifest.
 PY
@@ -512,7 +512,7 @@ dest=$(mktemp -d /tmp/ntfs-photo3-recovery.XXXXXX)
 DEST="$dest" PYTHONPATH=. python3 - <<'PY'
 from pathlib import Path
 from src.ntfs_recovery import VHDXReader, NTFSVolume
-source = "/mnt/c/Users/Mark/AppData/Local/Temp/ntfs-recovery-test.vhdx"
+source = "/path/to/ntfs-recovery-test.vhdx"
 with VHDXReader(source) as reader:
     with NTFSVolume(reader, offset=0x01000000) as volume:
         print(volume.recover_selected(Path(__import__("os").environ["DEST"]),
@@ -576,7 +576,7 @@ Bounded read-only VHDX validation:
 ```text
 PYTHONPATH=. python3 - <<'PY'
 from src.ntfs_recovery import VHDXReader, NTFSVolume
-with VHDXReader('/mnt/c/Users/Mark/AppData/Local/Temp/ntfs-recovery-test.vhdx') as reader:
+with VHDXReader('/path/to/ntfs-recovery-test.vhdx') as reader:
     with NTFSVolume(reader, offset=0x01000000) as volume:
         bitmap = volume.volume_bitmap()
         clusters = (volume.geometry.total_sectors + volume.geometry.sectors_per_cluster - 1) // volume.geometry.sectors_per_cluster
@@ -622,7 +622,7 @@ The source was opened only through `VHDXReader`; no physical device was
 accessed. The original manifest was read from:
 
 ```text
-/mnt/c/Users/Mark/AppData/Local/Temp/ntfs-recovery-originals.json
+/path/to/ntfs-recovery-originals.json
 ```
 
 Bitmap revalidation succeeded:

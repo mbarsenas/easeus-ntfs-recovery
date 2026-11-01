@@ -36,7 +36,7 @@ Validation used bounded reads only:
 PYTHONPATH=. python3 - <<'PY'
 from src.ntfs_recovery import VHDXReader, NTFSVolume, is_easeus_ntfs_boot_sector, validate_ntfs_candidate
 
-path = "/mnt/c/Users/Mark/AppData/Local/Temp/ntfs-recovery-test.vhdx"
+path = "/path/to/ntfs-recovery-test.vhdx"
 with VHDXReader(path) as source:
     assert source.virtual_size == 2147483648
     assert source.logical_sector_size == 512

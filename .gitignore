@@ -1,4 +1,36 @@
 __pycache__/
 *.py[cod]
+*.egg-info/
+.venv/
+venv/
+.env
+.env.*
+*.pem
+*.key
+*.p12
+*.pfx
+*.crt
+*.csr
+*.token
+*.secret
+*.sqlite
+*.db
+
+# Proprietary binaries and reverse-engineering work products.
+*.dll
+*.exe
+*.msi
 analysis/
 decompiled-all/
+
+# Disk images and generated recovery output. Fixtures are reproducible.
+*.img
+*.dd
+*.raw
+*.vhd
+*.vhdx
+*.iso
+recovery-output/
+recovered/
+recovery-log.jsonl
+reports/sdg-readonly-status.md

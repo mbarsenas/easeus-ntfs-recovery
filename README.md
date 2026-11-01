@@ -6,6 +6,14 @@ boot-sector/backup validation, MFT record traversal, FILE update-sequence
 fixups, resident and nonresident attributes, signed NTFS data runs, sparse
 streams, deleted-record enumeration, and raw FILE-record deep scanning.
 
+This is an independent implementation for research and recovery validation.
+It is not an EaseUS product, does not include EaseUS binaries or source code,
+and does not require EaseUS Data Recovery Wizard.
+
+Requirements: Python 3.10 or newer; runtime code uses only the Python standard
+library. The optional formatter-created fixture workflow may require external
+NTFS utilities, but the deterministic fixtures require no external packages.
+
 The recovered DLL’s exported entry points are `EUCreateNTFSQuickSearcher` and
 `EUCreateNTFSSearcher`. Ghidra evidence shows the quick path using a configurable
 `fastsearch` setting, while the general path scans record-sized blocks, checks
@@ -25,6 +33,25 @@ Example listing (including deleted records):
 ```sh
 PYTHONPATH=. python3 -m src.ntfs_recovery image.dd --deleted
 ```
+
+For reproducible local validation without a physical device:
+
+```sh
+python3 -m py_compile src/ntfs_recovery.py fixtures/*.py tests/*.py
+python3 -m unittest -v \
+  tests.test_vhdx_reader \
+  tests.test_synthetic_ntfs_image \
+  tests.test_deleted_vhdx_fixture
+```
+
+The release checkpoint and fixture hashes are recorded in
+`reports/recovery-baseline.md`. Generated disk images are intentionally not
+committed; use the fixture generators to recreate them.
+
+No open-source license has been selected for this repository yet. A license
+should be added only after the copyright holder makes that choice. Third-party
+EaseUS software and reverse-engineering artifacts are not part of the public
+repository.
 
 ## Verified reliability boundary
 
